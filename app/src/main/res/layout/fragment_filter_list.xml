@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.RecyclerView
     android:id="@+id/list"
     android:name="dk.redweb.shoppinglist.OnListFragment"
@@ -8,7 +9,6 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:background="@android:color/holo_red_light"
     app:layoutManager="LinearLayoutManager"
     tools:context="dk.redweb.shoppinglist.FrontEnd.MainView.MainActivity"
     tools:listitem="@layout/cell_onlist"/>

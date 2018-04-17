@@ -66,4 +66,12 @@ class MainViewModel : ViewModel(){
     fun getLiveSelectedItems() : LiveData<MutableList<MutableLiveData<Item>>> {
         return _liveSelectedItems;
     }
+
+    fun getCount() : Int{
+        val items = getLiveItems().value
+        if(items == null) {
+            return 0
+        }
+        return items.size
+    }
 }

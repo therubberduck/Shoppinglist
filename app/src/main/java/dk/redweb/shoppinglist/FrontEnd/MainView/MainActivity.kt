@@ -8,8 +8,11 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.widget.EditText
 import android.widget.ImageButton
+import com.crashlytics.android.Crashlytics
+import dk.redweb.shoppinglist.FrontEnd.MainView.FilterListFragment.FilterListFragment
 import dk.redweb.shoppinglist.FrontEnd.MainView.OnListFragment.OnListFragment
 import dk.redweb.shoppinglist.R
+import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,8 +23,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setupToolbar()
+//        setupToolbar()
         setupPager()
+
+        Fabric.with(this, Crashlytics()) //TODO Turns on Firebase Crashlytics. Ask for user confirmation first
     }
 
     private fun setupToolbar() {
@@ -55,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 return OnListFragment()
             }
             else {
-                return OnListFragment()
+                return FilterListFragment()
             }
         }
 

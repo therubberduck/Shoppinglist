@@ -26,6 +26,12 @@ class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private v
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position:Int) {
+        if(_viewModel.getCount() == 0){
+            holder.item = null
+            holder.txtTitle.text = "No items on list"
+            return
+        }
+
         _viewModel.getLiveItem(position).observe(activity, Observer<Item>{
             item ->
             if (item != null) {
@@ -50,7 +56,10 @@ class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private v
     }
 
     override fun getItemCount():Int {
-        return _viewModel.getLiveItems().value!!.size
+        if(_viewModel.getCount() == 0) {
+            return 1;
+        }
+        return _viewModel.getCount();
     }
 
     inner class ViewHolder( val cell: View): RecyclerView.ViewHolder(cell) {

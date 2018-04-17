@@ -4,7 +4,6 @@ import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import dk.redweb.shoppinglist.Database.AppDatabase
 import dk.redweb.shoppinglist.Database.Model.DbItem
-import dk.redweb.shoppinglist.Utility.MyLog
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.*
 import org.junit.runner.RunWith
@@ -13,18 +12,8 @@ import org.junit.runner.RunWith
  * Created by redwebpraktik on 15/02/2018.
  */
 @RunWith(AndroidJUnit4::class)
-class DbTest {
+class DbTest : BaseTest("DbTest") {
     private lateinit var _db: AppDatabase
-
-    companion object {
-        private var _testsRun = 0
-
-        @AfterClass
-        @JvmStatic
-        fun logging() {
-            MyLog.v("androidTest", "ItemDatabaseTest finished " + _testsRun + " tests")
-        }
-    }
 
     @Before
     fun createDb(){
@@ -170,10 +159,5 @@ class DbTest {
         Assert.assertEquals(true, testedItem.onList)
 
         finishTest()
-    }
-
-    fun finishTest() {
-        MyLog.v("androidTest", this::class.simpleName + ":" + Thread.currentThread().stackTrace[3].methodName + ": is successful");
-        _testsRun++
     }
 }
