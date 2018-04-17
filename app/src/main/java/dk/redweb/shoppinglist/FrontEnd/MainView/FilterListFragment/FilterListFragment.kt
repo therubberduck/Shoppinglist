@@ -9,14 +9,16 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import dk.redweb.shoppinglist.FrontEnd.MainView.OnListFragment.OnListRecyclerViewAdapter
+import dk.redweb.shoppinglist.FrontEnd.Custom.RecyclerViewInterface
 
 import dk.redweb.shoppinglist.R
+import dk.redweb.shoppinglist.Utility.visibleIf
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
+import kotlinx.android.synthetic.main.fragment_filter_list.*
 
-class FilterListFragment : Fragment() {
+class FilterListFragment : Fragment(), RecyclerViewInterface {
 
-    private var _adapter: OnListRecyclerViewAdapter? = null
+    private var _adapter: FilterListRecyclerViewAdapter? = null
 
     private lateinit var _viewmodel: MainViewModel
 
@@ -28,18 +30,18 @@ class FilterListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_filter_list, container, false)
-
-        if(view is RecyclerView) {
-            val context = view.getContext()
-            val recyclerview = view
-            recyclerview.layoutManager = LinearLayoutManager(context)
-            _adapter = OnListRecyclerViewAdapter(_viewmodel, activity)
-            recyclerview.adapter = _adapter
-        }
-
-        return view
+        return inflater!!.inflate(R.layout.fragment_filter_list, container, false)
     }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        list.layoutManager = LinearLayoutManager(context)
+        _adapter = FilterListRecyclerViewAdapter(_viewmodel, this)
+        list.adapter = _adapter
+    }
+
+    override fun recyclerViewIsEmpty(isEmpty: Boolean) {
+        txtEmptyList.visibleIf(activity) { return@visibleIf isEmpty }
+    }
 }

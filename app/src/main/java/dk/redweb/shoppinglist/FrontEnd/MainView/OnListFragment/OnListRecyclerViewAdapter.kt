@@ -17,7 +17,7 @@ import dk.redweb.shoppinglist.ViewModel.MainViewModel
  * Created by redwebpraktik on 13/02/2018.
  */
 
-class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private val activity: FragmentActivity): RecyclerView.Adapter<OnListRecyclerViewAdapter.ViewHolder>() {
+class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private val fragment: OnListFragment): RecyclerView.Adapter<OnListRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): ViewHolder {
         val view = LayoutInflater.from(parent.getContext())
@@ -26,18 +26,12 @@ class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private v
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position:Int) {
-        if(_viewModel.getCount() == 0){
-            holder.item = null
-            holder.txtTitle.text = "No items on list"
-            return
-        }
-
-        _viewModel.getLiveItem(position).observe(activity, Observer<Item>{
+        _viewModel.getLiveItem(position).observe(fragment.activity, Observer<Item>{
             item ->
             if (item != null) {
                 holder.item = item
                 holder.txtTitle.text = item.getName()
-                item.isOnList().observe(activity, Observer {
+                item.isOnList().observe(fragment.activity, Observer {
                     isChecked ->
                     if(isChecked != null) {
                         holder.chkSelected.isChecked = isChecked
@@ -57,9 +51,11 @@ class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private v
 
     override fun getItemCount():Int {
         if(_viewModel.getCount() == 0) {
-            return 1;
+            fragment.recyclerViewIsEmpty(true)
+            return 0
         }
-        return _viewModel.getCount();
+        fragment.recyclerViewIsEmpty(false)
+        return _viewModel.getCount()
     }
 
     inner class ViewHolder( val cell: View): RecyclerView.ViewHolder(cell) {
