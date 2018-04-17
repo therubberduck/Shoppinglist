@@ -20,8 +20,6 @@ class MainActivity : AppCompatActivity() {
 
     private var _firebaseAnalytics: FirebaseAnalytics? = null
 
-    private var _sectionPagerAdapter: SectionsPagerAdapter? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
