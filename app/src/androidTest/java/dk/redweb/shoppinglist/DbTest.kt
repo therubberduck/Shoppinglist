@@ -65,6 +65,37 @@ class DbTest : BaseTest("DbTest") {
     }
 
     @Test
+    fun getSingleItem() {
+        //Arrange
+        val itemName = "TestItem"
+        val otherItemName = "NotTheTestItem"
+        var itemdId: Long = -1
+        lateinit var item: DbItem
+
+        runBlocking {
+            _db.Items.createItem(otherItemName)
+            _db.Items.createItem(itemName) {
+                itemdId = it
+            }
+            _db.Items.createItem(otherItemName)
+        }
+
+        //Assert
+        runBlocking {
+            _db.Items.getItem(itemdId) {
+                item = it
+            }
+        }
+
+        //Assert
+        Assert.assertEquals(itemdId, item.id)
+        Assert.assertEquals(itemName, item.name)
+        Assert.assertEquals(false, item.onList)
+
+        finishTest()
+    }
+
+    @Test
     fun getAllItems() {
         //Arrange
         val item1Name = "CItem1"

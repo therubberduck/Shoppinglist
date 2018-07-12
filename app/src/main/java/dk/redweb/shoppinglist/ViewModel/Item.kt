@@ -1,50 +1,57 @@
 package dk.redweb.shoppinglist.ViewModel
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import dk.redweb.shoppinglist.Database.Model.DbItem
+import kotlin.properties.Delegates
 
 /**
  * Created by redwebpraktik on 13/02/2018.
  */
-class Item(id: Int, name: String, onList: Boolean) : ViewModel() {
+open class Item(private var _id: Long, private var _name: String, private var _onList: Boolean) : BaseViewModel() {
 
+    constructor(dbItem: DbItem) : this(dbItem.id, dbItem.name, dbItem.onList)
 
-    private var _id: MutableLiveData<Int> = MutableLiveData()
-    fun getId(): Int {
-        if(_id.value == null) throw NullPointerException()
-        return _id.value!!
-    }
-    fun setId(id: Int) {
-        _id.postValue(id)
+    fun getId(): Long {
+        return _id
     }
 
-    private var _name: MutableLiveData<String> = MutableLiveData()
-    fun getLiveName(): LiveData<String> {
+    fun setId(id: Long) {
+        _id = id
+    }
+
+    fun getName(): String {
         return _name
     }
-    fun getName(): String {
-        if(_name.value == null) throw NullPointerException()
-        return _name.value!!
-    }
+
     fun setName(name: String) {
-        _name.postValue(name)
+        _name = name
     }
 
-    private var _onList: MutableLiveData<Boolean> = MutableLiveData()
-    fun isOnList(): LiveData<Boolean> {
+    fun isOnList(): Boolean {
         return _onList;
     }
+
     fun putOnList() {
-        _onList.postValue(true)
-    }
-    fun removeFromList() {
-        _onList.postValue(false)
+        if(_onList != true) {
+            _onList = true
+            doCallback(onListObservationList.values, _onList)
+        }
     }
 
-    init {
-        _id.value = id
-        _name.value = name
-        _onList.value = onList
+    fun removeFromList() {
+        if(_onList != false) {
+            _onList = false
+            doCallback(onListObservationList.values, _onList)
+        }
+    }
+
+    private val onListObservationList: HashMap<Any, (id: Boolean) -> Unit> = hashMapOf()
+    fun observeOnList(key: Any, callback: (id: Boolean) -> Unit) : (id: Boolean) -> Unit {
+        onListObservationList.put(key, callback)
+        callback(_onList)
+        return callback
+    }
+
+    fun unobserveOnList(key: Any): Unit {
+        onListObservationList.remove(key)
     }
 }

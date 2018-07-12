@@ -39,6 +39,6 @@ class DbItemRowParser : RowParser<DbItem> {
         val id = columns[0] as Long
         val name = columns[1] as String
         val onList = columns[2] as Long
-        return DbItem(id.toInt(), name, onList == 1L)
+        return DbItem(id, name, onList == 1L)
     }
 }

@@ -1,77 +1,82 @@
 package dk.redweb.shoppinglist.ViewModel
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import dk.redweb.shoppinglist.Database.AppDatabase
+import dk.redweb.shoppinglist.Database.Model.DbItem
 
 /**
  * Created by redwebpraktik on 13/02/2018.
  */
-class MainViewModel : ViewModel(){
-    private var _items: MutableList<Item> = mutableListOf<Item>()
-    private var _liveItems: MutableLiveData<MutableList<MutableLiveData<Item>>> = MutableLiveData()
-    private var _liveSelectedItems: MutableLiveData<MutableList<MutableLiveData<Item>>> = MutableLiveData()
+class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
+    private val _items: MutableList<Item> = mutableListOf()
+    private val _selectedItems: MutableList<Item> = mutableListOf()
 
-    private lateinit var _db: AppDatabase
+    private val _itemsSubscription: HashMap<Any, (MutableList<Item>) -> Unit> = hashMapOf()
+    private val _selectedItemsSubscription: HashMap<Any, (MutableList<Item>) -> Unit> = hashMapOf()
 
     init {
-
-    }
-
-    fun connectToDb(db: AppDatabase) {
-        _db = db
-
         _db.Items.getItems {
-            for (dbitem in it) {
-                val item = Item(dbitem.id, dbitem.name, dbitem.onList)
-                _items.add(item)
+            setupViewModel(it)
+        }
+    }
 
-                val dataItem = MutableLiveData<Item>()
-                dataItem.value = item
-                _liveItems.value?.add(dataItem)
+    fun setupViewModel(items: List<DbItem>) {
+        for (dbitem in items) {
+            val item = Item(dbitem.id, dbitem.name, dbitem.onList)
+            handleItemObservation(item)
+        }
+    }
 
-                if(dbitem.onList) {
-                    _liveSelectedItems.value?.add(dataItem)
-                }
+    fun createItem(name: String) {
+        _db.Items.createItem(name) {
+            itemid ->
+            _db.Items.getItem(itemid){
+                dbitem ->
+                val item = Item(dbitem)
+                handleItemObservation(item)
             }
         }
     }
 
-    fun getItem(position: Int) : Item {
-        val items = _liveItems.value
-        if(items != null) {
-            val item = items.get(position).value
-            if (item != null) {
-                return item
+    private fun handleItemObservation(item: Item) {
+        item.observeOnList(this) {
+            onList ->
+            if(onList) {
+                _selectedItems.add(item)
             }
+            else {
+                _selectedItems.remove(item)
+            }
+            _db.Items.updateItemOnListStatus(item.getId(), onList)
+            doCallback(_selectedItemsSubscription.values, _selectedItems)
         }
-        throw NullPointerException()
+
+        _items.add(item)
+        doCallback(_itemsSubscription.values, _items)
     }
 
-    fun getLiveItem(position: Int) : LiveData<Item> {
-        //Do not call unless you know the list had been initialized
-
-        val items = _liveItems.value
-        if(items != null) {
-            return items.get(position)
+    fun getItem(position: Int, onlySelected: Boolean = false) : Item {
+        if(onlySelected) {
+            return _selectedItems.get(position)
         }
-        throw NullPointerException()
-    }
-
-    fun getLiveItems() : LiveData<MutableList<MutableLiveData<Item>>> {
-        return _liveItems
-    }
-
-    fun getLiveSelectedItems() : LiveData<MutableList<MutableLiveData<Item>>> {
-        return _liveSelectedItems;
-    }
-
-    fun getCount() : Int{
-        val items = getLiveItems().value
-        if(items == null) {
-            return 0
+        else {
+            return _items.get(position)
         }
-        return items.size
+    }
+
+    fun getCount(onlySelected: Boolean = false) : Int{
+        if(onlySelected) {
+            return _selectedItems.size
+        }
+        else {
+            return _items.size
+        }
+    }
+
+    fun observeItems(key: Any, callback: (item: MutableList<Item>) -> Unit) {
+        _itemsSubscription.put(key, callback)
+    }
+
+    fun observeSelectedItems(key: Any, callback: (item: MutableList<Item>) -> Unit) {
+        _selectedItemsSubscription.put(key, callback)
     }
 }

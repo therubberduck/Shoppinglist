@@ -15,6 +15,9 @@ class MainView(context: Context?, screens:List<Screen<*>>) : BaseScreenView<Main
 
     init {
         inflate(context, R.layout.activity_main, this)
+
+        _pager = findViewById(R.id.container)
+
         initPager(context, screens)
     }
 

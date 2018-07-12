@@ -27,6 +27,16 @@ class ItemModule : Dbmodule() {
         }
     }
 
+    fun getItem(itemId: Long, callback: (DbItem) -> Unit) {
+        _db.use {
+            val whereString = ItemSchema.id + " = " + itemId
+            select(ItemSchema.tableName, "*").whereArgs(whereString).exec {
+                val item = parseSingle(ItemSchema.rowParser)
+                callback(item)
+            }
+        }
+    }
+
     fun getItems(callback: (List<DbItem>) -> Unit) {
         _db.use {
             select(ItemSchema.tableName, "*").orderBy(ItemSchema.name).exec {

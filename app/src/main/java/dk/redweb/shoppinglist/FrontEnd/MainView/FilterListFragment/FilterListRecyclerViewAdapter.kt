@@ -1,6 +1,5 @@
 package dk.redweb.shoppinglist.FrontEnd.MainView.FilterListFragment
 
-import android.arch.lifecycle.Observer
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,7 @@ import dk.redweb.shoppinglist.R
 import dk.redweb.shoppinglist.ViewModel.Item
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
 
-class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, private val fragment: FilterListFragment): RecyclerView.Adapter<FilterListRecyclerViewAdapter.ViewHolder>() {
+class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, private val screen: FilterListScreen): RecyclerView.Adapter<FilterListRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): ViewHolder {
         val view = LayoutInflater.from(parent.getContext())
@@ -20,35 +19,29 @@ class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, priva
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position:Int) {
-        _viewModel.getLiveItem(position).observe(fragment.activity, Observer<Item>{
-            item ->
-            if (item != null) {
-                holder.item = item
-                holder.txtTitle.text = item.getName()
-                item.isOnList().observe(fragment.activity, Observer {
-                    isChecked ->
-                    if(isChecked != null) {
-                        holder.chkSelected.isChecked = isChecked
-                    }
-                })
-                holder.chkSelected.setOnCheckedChangeListener { buttonView, isChecked ->
-                    if(isChecked) {
-                        holder.item!!.putOnList()
-                    }
-                    else {
-                        holder.item!!.removeFromList()
-                    }
-                }
+        val item = _viewModel.getItem(position, false);
+        holder.item = item
+        holder.txtTitle.text = item.getName()
+        item.observeOnList(this) {
+            if(holder.chkSelected.isChecked != it) {
+                holder.chkSelected.isChecked = it
             }
-        })
+        }
+        holder.chkSelected.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                holder.item!!.putOnList()
+            } else {
+                holder.item!!.removeFromList()
+            }
+        }
     }
 
     override fun getItemCount():Int {
         if(_viewModel.getCount() == 0) {
-            fragment.recyclerViewIsEmpty(true)
+            screen.recyclerViewIsEmpty(true)
             return 0
         }
-        fragment.recyclerViewIsEmpty(false)
+        screen.recyclerViewIsEmpty(false)
         return _viewModel.getCount()
     }
 

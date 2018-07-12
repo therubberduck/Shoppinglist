@@ -1,6 +1,5 @@
 package dk.redweb.shoppinglist.FrontEnd.MainView.OnListFragment
 
-import android.arch.lifecycle.Observer
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -24,42 +23,43 @@ class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private v
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position:Int) {
-        _viewModel.getLiveItem(position).observe(screen.activity, Observer<Item>{
-            item ->
-            if (item != null) {
-                holder.item = item
-                holder.txtTitle.text = item.getName()
-                item.isOnList().observe(screen.activity, Observer {
-                    isChecked ->
-                    if(isChecked != null) {
-                        holder.chkSelected.isChecked = isChecked
-                    }
-                })
-                holder.chkSelected.setOnCheckedChangeListener { buttonView, isChecked ->
-                    if(isChecked) {
-                        holder.item!!.putOnList()
-                    }
-                    else {
-                        holder.item!!.removeFromList()
-                    }
-                }
+        val item = _viewModel.getItem(position, true)
+        holder.item = item
+        holder.txtTitle.text = item.getName()
+        holder.callback = item.observeOnList(this) {
+            if(it == false) {
+                item.unobserveOnList(this)
             }
-        })
+            if(holder.chkSelected.isChecked != it) {
+                holder.chkSelected.isChecked = it
+            }
+        }
+        holder.chkSelected.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked) {
+                holder.item!!.putOnList()
+            }
+            else {
+                holder.item!!.removeFromList()
+            }
+        }
     }
 
     override fun getItemCount():Int {
-        if(_viewModel.getCount() == 0) {
+        val count = _viewModel.getCount(true)
+        if(count == 0) {
             screen.recyclerViewIsEmpty(true)
             return 0
         }
         screen.recyclerViewIsEmpty(false)
-        return _viewModel.getCount()
+        return count
     }
 
     inner class ViewHolder( val cell: View): RecyclerView.ViewHolder(cell) {
         val chkSelected: CheckBox
         val txtTitle: TextView
         var item: Item? = null
+
+        var callback: (id: Boolean) -> Unit = {}
 
         init{
             chkSelected = cell.findViewById<View>(R.id.chkSelected) as CheckBox

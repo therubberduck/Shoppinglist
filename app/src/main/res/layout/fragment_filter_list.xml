@@ -25,7 +25,7 @@
         android:textStyle="bold"
         android:textSize="24sp"
         android:textAlignment="center"
-        android:text="There are no\nitems on this list."/>
+        android:text="There are no\nitems in the app."/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAdd"

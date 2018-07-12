@@ -7,6 +7,7 @@ import com.wealthfront.magellan.Screen
 import com.wealthfront.magellan.ScreenGroup
 
 class MainScreen(screens: List<Screen<*>>) : ScreenGroup<Screen<*>, MainView>(screens) {
+
     override fun createView(context: Context?): MainView {
         return MainView(context, screens)
     }

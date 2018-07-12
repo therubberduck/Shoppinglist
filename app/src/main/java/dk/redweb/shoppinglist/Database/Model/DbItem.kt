@@ -6,7 +6,7 @@ import org.jetbrains.anko.db.RowParser
  * Created by redwebpraktik on 15/02/2018.
  */
 data class DbItem(
-    val id: Int,
+    val id: Long,
     val name: String,
     val onList: Boolean
 )
