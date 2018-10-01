@@ -22,9 +22,9 @@ class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, priva
         val item = _viewModel.getItem(position, false);
         holder.item = item
         holder.txtTitle.text = item.getName()
-        item.observeOnList(this) {
-            if(holder.chkSelected.isChecked != it) {
-                holder.chkSelected.isChecked = it
+        item.observeOnList(this) {itemIsChecked ->
+            if(holder.chkSelected.isChecked != itemIsChecked) {
+                holder.chkSelected.isChecked = itemIsChecked
             }
         }
         holder.chkSelected.setOnCheckedChangeListener { buttonView, isChecked ->

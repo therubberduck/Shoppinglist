@@ -32,11 +32,11 @@ class MainView(context: Context?, screens:List<Screen<*>>) : BaseScreenView<Main
     }
 
     class SwipeAdapter(val context: Context?, val screens: List<Screen<*>>) : PagerAdapter() {
-        override fun instantiateItem(container: ViewGroup?, position: Int): Any {
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
             return screens.get(position).getView()
         }
 
-        override fun destroyItem(container: ViewGroup?, position: Int, `object`: Any?) {
+        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
 
         }
 
@@ -44,7 +44,7 @@ class MainView(context: Context?, screens:List<Screen<*>>) : BaseScreenView<Main
             return screens.count()
         }
 
-        override fun isViewFromObject(view: View?, `object`: Any?): Boolean {
+        override fun isViewFromObject(view: View, `object`: Any): Boolean {
             return view == `object`
         }
 

@@ -31,22 +31,22 @@ kotlin {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.21"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:design:27.1.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
 
     implementation 'com.google.firebase:firebase-core:15.0.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
 
     def magellanVersion = '1.0.0'
-    compile 'com.wealthfront:magellan:' + magellanVersion
-    compile 'com.wealthfront:magellan-support:' + magellanVersion
-    compile 'com.wealthfront:magellan-rx:' + magellanVersion
+    implementation 'com.wealthfront:magellan:' + magellanVersion
+    implementation 'com.wealthfront:magellan-support:' + magellanVersion
+    implementation 'com.wealthfront:magellan-rx:' + magellanVersion
 
     implementation "org.jetbrains.anko:anko-sqlite:0.10.4"
 
