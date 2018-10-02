@@ -8,6 +8,7 @@ import dk.redweb.shoppinglist.FrontEnd.Custom.RecyclerViewInterface
 import dk.redweb.shoppinglist.FrontEnd.MainView.OnListFragment.OnListView
 import dk.redweb.shoppinglist.Utility.visibleIf
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
+import java.util.*
 
 class FilterListScreen(private val _viewModel: MainViewModel) : Screen<FilterListView>(), RecyclerViewInterface {
 
@@ -21,7 +22,8 @@ class FilterListScreen(private val _viewModel: MainViewModel) : Screen<FilterLis
         view.list.adapter = _adapter
 
         view.fabAddItem.setOnClickListener {
-            _viewModel.createItem("Test Item")
+            val name = "Test Item " + Date().seconds
+            _viewModel.createItem(name)
         }
 
         _viewModel.observeItems(this) {

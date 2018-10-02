@@ -22,7 +22,7 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
     fun setupViewModel(items: List<DbItem>) {
         for (dbitem in items) {
             val item = Item(dbitem.id, dbitem.name, dbitem.onList)
-            handleItemObservation(item)
+            handleAddItem(item)
         }
     }
 
@@ -32,12 +32,17 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
             _db.Items.getItem(itemid){
                 dbitem ->
                 val item = Item(dbitem)
-                handleItemObservation(item)
+                handleAddItem(item)
             }
         }
     }
 
-    private fun handleItemObservation(item: Item) {
+    fun deleteItem(item: Item) {
+        _db.Items.removeItem(item.getId())
+        handleRemoveItem(item)
+    }
+
+    private fun handleAddItem(item: Item) {
         item.observeOnList(this) {
             onList ->
             if(onList) {
@@ -51,6 +56,15 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
         }
 
         _items.add(item)
+        doCallback(_itemsSubscription.values, _items)
+    }
+
+    private fun handleRemoveItem(item: Item) {
+        _items.remove(item)
+        val wasSelected = _selectedItems.remove(item)
+        if(wasSelected){
+            doCallback(_selectedItemsSubscription.values, _selectedItems)
+        }
         doCallback(_itemsSubscription.values, _items)
     }
 

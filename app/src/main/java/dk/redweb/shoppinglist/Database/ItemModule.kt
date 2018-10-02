@@ -55,6 +55,13 @@ class ItemModule : Dbmodule() {
         }
     }
 
+    fun removeItem(itemId: Long) {
+        _db.use {
+            val whereString = ItemSchema.id + "=" + itemId;
+            delete(ItemSchema.tableName, whereString)
+        }
+    }
+
     fun updateItemOnListStatus(id: Long, onList: Boolean) {
         val contentValues = ContentValues()
         contentValues.put(ItemSchema.onList, onList)

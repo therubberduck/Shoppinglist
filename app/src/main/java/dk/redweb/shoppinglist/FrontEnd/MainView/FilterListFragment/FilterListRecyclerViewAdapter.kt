@@ -34,6 +34,10 @@ class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, priva
                 holder.item!!.removeFromList()
             }
         }
+        holder.cell.setOnLongClickListener {
+            _viewModel.deleteItem(holder.item!!)
+            true
+        }
     }
 
     override fun getItemCount():Int {
