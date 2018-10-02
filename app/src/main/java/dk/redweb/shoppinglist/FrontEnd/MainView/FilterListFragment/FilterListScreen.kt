@@ -12,13 +12,14 @@ import java.util.*
 
 class FilterListScreen(private val _viewModel: MainViewModel) : Screen<FilterListView>(), RecyclerViewInterface {
 
+    private val _companionViews: FilterListCompanionViews = FilterListCompanionViews(_viewModel)
     private var _adapter: FilterListRecyclerViewAdapter? = null
 
     override fun createView(context: Context?): FilterListView {
         val view = FilterListView(context)
 
         view.list.layoutManager = LinearLayoutManager(context)
-        _adapter = FilterListRecyclerViewAdapter(_viewModel, this)
+        _adapter = FilterListRecyclerViewAdapter(_viewModel, this, _companionViews)
         view.list.adapter = _adapter
 
         view.fabAddItem.setOnClickListener {

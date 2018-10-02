@@ -37,6 +37,10 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
         }
     }
 
+    fun editItem(item: Item) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     fun deleteItem(item: Item) {
         _db.Items.removeItem(item.getId())
         handleRemoveItem(item)

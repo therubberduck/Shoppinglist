@@ -10,7 +10,7 @@ import dk.redweb.shoppinglist.R
 import dk.redweb.shoppinglist.ViewModel.Item
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
 
-class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, private val screen: FilterListScreen): RecyclerView.Adapter<FilterListRecyclerViewAdapter.ViewHolder>() {
+class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, private val screen: FilterListScreen, private val companionViews: FilterListCompanionViews): RecyclerView.Adapter<FilterListRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): ViewHolder {
         val view = LayoutInflater.from(parent.getContext())
@@ -35,7 +35,7 @@ class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, priva
             }
         }
         holder.cell.setOnLongClickListener {
-            _viewModel.deleteItem(holder.item!!)
+            companionViews.showLongClickMenu(holder)
             true
         }
     }
@@ -48,6 +48,8 @@ class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, priva
         screen.recyclerViewIsEmpty(false)
         return _viewModel.getCount()
     }
+
+
 
     inner class ViewHolder( val cell: View): RecyclerView.ViewHolder(cell) {
         val chkSelected: CheckBox
