@@ -47,10 +47,14 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
     }
 
     private fun handleAddItem(item: Item) {
+        //Selected List will be handled via observation
+        //Set up observation here
         item.observeOnList(this) {
             onList ->
+            //Handle Selected List according to item's onList status
             if(onList) {
                 _selectedItems.add(item)
+                _selectedItems.sortBy { item -> item.getName() }
             }
             else {
                 _selectedItems.remove(item)
@@ -59,7 +63,9 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
             doCallback(_selectedItemsSubscription.values, _selectedItems)
         }
 
+        //Handle Full List
         _items.add(item)
+        _items.sortBy { item -> item.getName() }
         doCallback(_itemsSubscription.values, _items)
     }
 
