@@ -6,6 +6,7 @@ import com.wealthfront.magellan.Screen
 import dk.redweb.shoppinglist.FrontEnd.DialogFactory
 import dk.redweb.shoppinglist.FrontEnd.MainActivity
 import dk.redweb.shoppinglist.R
+import dk.redweb.shoppinglist.Utility.hideKeyboard
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
 import org.jetbrains.anko.find
 
@@ -30,6 +31,8 @@ class AddItemScreen(private val _viewModel: MainViewModel) : Screen<AddItemView>
             }
             return
         }
+
+        activity.hideKeyboard()
 
         _viewModel.createItem(name)
         (activity as MainActivity).navigator().goBack()
