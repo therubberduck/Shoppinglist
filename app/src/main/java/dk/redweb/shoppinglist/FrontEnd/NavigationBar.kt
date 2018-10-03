@@ -13,22 +13,26 @@ import org.jetbrains.anko.find
 class NavigationBar(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
     : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private lateinit var _txtTitle: TextView
-    private lateinit var _btnBack: ImageButton
+    private val _txtTitle: TextView
+    private val _btnBack: ImageButton
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     init {
         inflate(context, R.layout.view_navigationbar, this)
 
-        _txtTitle = find<TextView>(R.id.txtNavTitle)
-        _btnBack = find<ImageButton>(R.id.btnNavBack)
+        _txtTitle = find(R.id.txtNavTitle)
+        _btnBack = find(R.id.btnNavBack)
 
         val activity = context as MainActivity
 
         _btnBack.setOnClickListener {
             activity.navigator().goBack()
         }
+    }
+
+    fun setTitle(title: Int) {
+        setTitle(context.getString(title))
     }
 
     fun setTitle(title: String) {
