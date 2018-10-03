@@ -1,13 +1,16 @@
 <resources>
     <string name="app_name">ShoppingList</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <string name="dialog_delete_title">Delete Item</string>
     <string name="dialog_delete_message">Do you wish to delete %1$s</string>
     <string name="dialog_delete_button">Delete</string>
 
+    <string name="dialog_default_errortitle">An Error Occured</string>
+    <string name="dialog_default_validationtitle">Validation Error</string>
+    <string name="dialog_ok">Ok</string>
     <string name="dialog_cancel">Cancel</string>
+
+    <string name="validation_fieldempty">%1$s cannot be empty. Please add a value for %1$s</string>
 </resources>

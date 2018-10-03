@@ -3,6 +3,7 @@ package dk.redweb.shoppinglist.FrontEnd
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import dk.redweb.shoppinglist.R
 
 class DialogFactory(val context: Context) {
 
@@ -63,10 +64,22 @@ class DialogFactory(val context: Context) {
     //Templates
     //
 
-//    fun showErrorDialog(message: Int, title: Int = R.string.dialog_defaultErrorTitle) : AlertDialog? {
-//        title(title)
-//        message(message)
-//        negativeButton(R.string.dialog_ok)
-//        return show()
-//    }
+    fun showErrorDialog(message: Int, title: Int = R.string.dialog_default_errortitle) : AlertDialog? {
+        title(title)
+        message(message)
+        negativeButton(R.string.dialog_ok)
+        return show()
+    }
+
+    fun showValidationDialog(message: Int, field: String? = null, action: ((DialogInterface, Int) -> Unit)) : AlertDialog? {
+        title(R.string.dialog_default_validationtitle)
+        if(field != null) {
+            message(context.getString(message, field))
+        }
+        else {
+            message(message)
+        }
+        negativeButton(R.string.dialog_ok, action)
+        return show()
+    }
 }
