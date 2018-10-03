@@ -15,7 +15,7 @@ class FilterListView(context: Context?) : BaseScreenView<FilterListScreen>(conte
     val fabAddItem: FloatingActionButton
 
     init {
-        View.inflate(context, R.layout.fragment_filter_list, this)
+        View.inflate(context, R.layout.screen_filter_list, this)
 
         list = findViewById(R.id.list)
         txtEmptyList = findViewById(R.id.txtEmptyList)

@@ -13,7 +13,7 @@ class OnListView(context: Context?) : BaseScreenView<OnListScreen>(context) {
     val txtEmptyList: TextView
 
     init {
-        View.inflate(context, R.layout.fragment_on_list, this)
+        View.inflate(context, R.layout.screen_on_list, this)
 
         list = findViewById(R.id.list)
         txtEmptyList = findViewById(R.id.txtEmptyList)
