@@ -16,6 +16,11 @@ import io.fabric.sdk.android.Fabric
 class MainActivity : SingleActivity() {
 
     private var _firebaseAnalytics: FirebaseAnalytics? = null
+    private lateinit var _navigator: Navigator
+
+    fun navigator(): Navigator {
+        return _navigator
+    }
 
     override fun createNavigator(): Navigator {
         val viewmodel = (application as App).getViewModel()
@@ -24,7 +29,9 @@ class MainActivity : SingleActivity() {
         list.add(OnListScreen(viewmodel))
         list.add(FilterListScreen(viewmodel))
 
-        return Navigator.withRoot(MainScreen(list)).build()
+        _navigator = Navigator.withRoot(MainScreen(list)).build()
+
+        return _navigator
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
