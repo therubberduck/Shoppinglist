@@ -4,7 +4,9 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import com.wealthfront.magellan.Screen
 import dk.redweb.shoppinglist.Database.AppDatabase
+import dk.redweb.shoppinglist.FrontEnd.AddItem.AddItemScreen
 import dk.redweb.shoppinglist.FrontEnd.Custom.RecyclerViewInterface
+import dk.redweb.shoppinglist.FrontEnd.MainActivity
 import dk.redweb.shoppinglist.FrontEnd.MainView.OnListFragment.OnListView
 import dk.redweb.shoppinglist.Utility.visibleIf
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
@@ -23,8 +25,8 @@ class FilterListScreen(private val _viewModel: MainViewModel) : Screen<FilterLis
         view.list.adapter = _adapter
 
         view.fabAddItem.setOnClickListener {
-            val name = "Test Item " + Date().seconds
-            _viewModel.createItem(name)
+            val addItemScreen = AddItemScreen(_viewModel)
+            (activity as MainActivity).navigator().show(addItemScreen)
         }
 
         _viewModel.observeItems(this) {

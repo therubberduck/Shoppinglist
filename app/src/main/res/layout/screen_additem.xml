@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <dk.redweb.shoppinglist.FrontEnd.NavigationBar
+        android:id="@+id/navbar"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilItemName"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/navbar"
+        app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp" android:layout_marginRight="8dp">
+        <EditText
+            android:id="@+id/edtItemName"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:hint="@string/itemname"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilItemPrefix"
+        android:layout_width="0dp" android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tilItemName"
+        app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintEnd_toStartOf="@id/tilItemSuffix"
+        app:layout_constraintHorizontal_weight="1"
+        android:layout_marginLeft="8dp" android:layout_marginRight="4dp">
+        <EditText
+            android:id="@+id/edtItemPrefix"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:hint="@string/itemprefix"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilItemSuffix"
+        android:layout_width="0dp" android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tilItemName"
+        app:layout_constraintStart_toEndOf="@id/tilItemPrefix" app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        android:layout_marginLeft="4dp" android:layout_marginRight="8dp">
+        <EditText
+            android:id="@+id/edtItemSuffix"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:hint="@string/itemsuffix"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnCommit"
+        android:layout_width="wrap_content" android:layout_height="32dp"
+        android:minWidth="96dp"
+        app:layout_constraintTop_toBottomOf="@id/tilItemSuffix"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp" android:layout_marginRight="8dp"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorAccentText"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="@string/screen_additem_commit"
+    />
+</android.support.constraint.ConstraintLayout>
