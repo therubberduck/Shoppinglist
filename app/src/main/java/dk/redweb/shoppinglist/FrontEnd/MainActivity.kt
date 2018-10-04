@@ -19,6 +19,9 @@ class MainActivity : SingleActivity() {
     private lateinit var _navigator: Navigator
 
     fun navigator(): Navigator {
+        if(_navigator == null) {
+            createNavigator()
+        }
         return _navigator
     }
 
