@@ -12,7 +12,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        _db  = AppDatabase(this, "sldb", 1)
+        _db  = AppDatabase(this, "sldb", 2)
 
         _viewmodel = MainViewModel(_db)
     }

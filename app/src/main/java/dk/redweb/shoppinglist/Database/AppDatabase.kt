@@ -25,6 +25,9 @@ class AppDatabase(context: Context, name: String?, version: Int) : ManagedSQLite
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if(oldVersion < 2) {
+            db.execSQL("ALTER TABLE " + ItemSchema.tableName + " ADD COLUMN " + ItemSchema.prefix + " TEXT DEFAULT ''")
+            db.execSQL("ALTER TABLE " + ItemSchema.tableName + " ADD COLUMN " + ItemSchema.suffix + " TEXT DEFAULT ''")
+        }
     }
 }

@@ -21,6 +21,8 @@ class ItemSchema : DbSchema(tableName) {
         val id = "Id"
         val name = "Name"
         val onList = "OnList"
+        val prefix = "Prefix"
+        val suffix = "Suffix"
 
         val rowParser = DbItemRowParser()
     }
@@ -29,7 +31,9 @@ class ItemSchema : DbSchema(tableName) {
         columns(
                 Pair(id, INTEGER + PRIMARY_KEY + AUTOINCREMENT),
                 Pair(name, TEXT),
-                Pair(onList, INTEGER)
+                Pair(onList, INTEGER),
+                Pair(prefix, TEXT),
+                Pair(suffix, TEXT)
         )
     }
 }
@@ -39,6 +43,8 @@ class DbItemRowParser : RowParser<DbItem> {
         val id = columns[0] as Long
         val name = columns[1] as String
         val onList = columns[2] as Long
-        return DbItem(id, name, onList == 1L)
+        val prefix = columns[3] as String
+        val suffix = columns[4] as String
+        return DbItem(id, name, onList == 1L, prefix, suffix)
     }
 }
