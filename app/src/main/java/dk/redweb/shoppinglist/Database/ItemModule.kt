@@ -2,6 +2,7 @@ package dk.redweb.shoppinglist.Database
 
 import android.content.ContentValues
 import dk.redweb.shoppinglist.Database.Model.DbItem
+import dk.redweb.shoppinglist.ViewModel.Item
 import kotlinx.coroutines.experimental.selects.select
 import org.jetbrains.anko.db.*
 
@@ -67,6 +68,31 @@ class ItemModule : Dbmodule() {
         contentValues.put(ItemSchema.onList, onList)
 
         val whereString = ItemSchema.id + "=" + id
+
+        _db.use {
+            update(ItemSchema.tableName, contentValues, whereString, null)
+        }
+    }
+
+    fun updateItem(item: Item) {
+        val contentValues = ContentValues()
+        contentValues.put(ItemSchema.name, item.getName())
+        contentValues.put(ItemSchema.prefix, item.getPrefix())
+        contentValues.put(ItemSchema.suffix, item.getSuffix())
+
+        val whereString = ItemSchema.id + "=" + item.getId()
+
+        _db.use {
+            update(ItemSchema.tableName, contentValues, whereString, null)
+        }
+    }
+
+    fun updatePrefixSuffix(item: Item) {
+        val contentValues = ContentValues()
+        contentValues.put(ItemSchema.prefix, item.getPrefix())
+        contentValues.put(ItemSchema.suffix, item.getSuffix())
+
+        val whereString = ItemSchema.id + "=" + item.getId()
 
         _db.use {
             update(ItemSchema.tableName, contentValues, whereString, null)

@@ -6,9 +6,10 @@ import kotlin.properties.Delegates
 /**
  * Created by redwebpraktik on 13/02/2018.
  */
-open class Item(private var _id: Long, private var _name: String, private var _onList: Boolean) : BaseViewModel() {
+open class Item(private var _id: Long, private var _name: String, private var _onList: Boolean,
+                private var _prefix: String, private var _suffix: String) : BaseViewModel() {
 
-    constructor(dbItem: DbItem) : this(dbItem.id, dbItem.name, dbItem.onList)
+    constructor(dbItem: DbItem) : this(dbItem.id, dbItem.name, dbItem.onList, dbItem.prefix, dbItem.suffix)
 
     fun getId(): Long {
         return _id
@@ -28,6 +29,23 @@ open class Item(private var _id: Long, private var _name: String, private var _o
 
     fun isOnList(): Boolean {
         return _onList;
+    }
+
+    fun getPrefix(): String {
+        return _prefix
+    }
+
+    fun getSuffix(): String {
+        return _suffix
+    }
+
+    fun getFullName(): String {
+        return _prefix + " " + _name + " " + _suffix
+    }
+
+    fun updatePrefixSuffix(prefix: String, suffix: String) {
+        _prefix = prefix
+        _suffix = suffix
     }
 
     fun putOnList() {

@@ -21,7 +21,7 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
 
     fun setupViewModel(items: List<DbItem>) {
         for (dbitem in items) {
-            val item = Item(dbitem.id, dbitem.name, dbitem.onList)
+            val item = Item(dbitem)
             handleAddItem(item)
         }
     }
@@ -39,6 +39,13 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
 
     fun editItem(item: Item) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun updateItemPrefixSuffix(item: Item) {
+        _db.Items.updatePrefixSuffix(item)
+
+        doCallback(_itemsSubscription.values, _items)
+        doCallback(_selectedItemsSubscription.values, _selectedItems)
     }
 
     fun deleteItem(item: Item) {

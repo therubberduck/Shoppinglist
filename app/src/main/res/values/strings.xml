@@ -8,6 +8,9 @@
     <string name="screen_additem_title">Add Item</string>
     <string name="screen_additem_commit">Add</string>
 
+    <string name="screen_prefixsuffix_title">Amounts</string>
+    <string name="screen_prefixsuffix_commit">Update</string>
+
     <string name="dialog_delete_title">Delete Item</string>
     <string name="dialog_delete_message">Do you wish to delete %1$s</string>
     <string name="dialog_delete_button">Delete</string>
