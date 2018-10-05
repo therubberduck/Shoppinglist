@@ -8,13 +8,15 @@ import dk.redweb.shoppinglist.FrontEnd.AddItem.AddItemScreen
 import dk.redweb.shoppinglist.FrontEnd.Custom.RecyclerViewInterface
 import dk.redweb.shoppinglist.FrontEnd.MainActivity
 import dk.redweb.shoppinglist.FrontEnd.MainView.OnListFragment.OnListView
+import dk.redweb.shoppinglist.FrontEnd.PrefixSuffix.PrefixSuffixScreen
 import dk.redweb.shoppinglist.Utility.visibleIf
+import dk.redweb.shoppinglist.ViewModel.Item
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
 import java.util.*
 
 class FilterListScreen(private val _viewModel: MainViewModel) : Screen<FilterListView>(), RecyclerViewInterface {
 
-    private val _companionViews: FilterListCompanionViews = FilterListCompanionViews(_viewModel)
+    private val _companionViews: FilterListCompanionViews = FilterListCompanionViews(this, _viewModel)
     private var _adapter: FilterListRecyclerViewAdapter? = null
 
     override fun createView(context: Context?): FilterListView {
@@ -42,5 +44,9 @@ class FilterListScreen(private val _viewModel: MainViewModel) : Screen<FilterLis
 
     fun openSuffixPrefixScreen(item: Item) {
         (activity as MainActivity).navigator().goTo(PrefixSuffixScreen(_viewModel, item))
+    }
+
+    fun openEditScreen(item: Item) {
+        (activity as MainActivity).navigator().goTo(AddItemScreen(_viewModel, item))
     }
 }

@@ -38,7 +38,10 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
     }
 
     fun editItem(item: Item) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        _db.Items.updateItem(item)
+
+        doCallback(_itemsSubscription.values, _items)
+        doCallback(_selectedItemsSubscription.values, _selectedItems)
     }
 
     fun updateItemPrefixSuffix(item: Item) {

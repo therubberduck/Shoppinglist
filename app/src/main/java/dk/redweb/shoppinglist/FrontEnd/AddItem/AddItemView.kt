@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.wealthfront.magellan.BaseScreenView
 import dk.redweb.shoppinglist.FrontEnd.NavigationBar
 import dk.redweb.shoppinglist.R
@@ -13,6 +14,7 @@ class AddItemView(context: Context?) : BaseScreenView<AddItemScreen>(context) {
 
     val navbar: NavigationBar
     val edtName: EditText
+    val txtFormattedName: TextView
     val edtPrefix: EditText
     val edtSuffix: EditText
     val btnCommit: Button
@@ -22,6 +24,7 @@ class AddItemView(context: Context?) : BaseScreenView<AddItemScreen>(context) {
 
         navbar = find(R.id.navbar)
         edtName = find(R.id.edtItemName)
+        txtFormattedName = find(R.id.txtFormattedName)
         edtPrefix = find(R.id.edtItemPrefix)
         edtSuffix = find(R.id.edtItemSuffix)
         btnCommit = find(R.id.btnCommit)
