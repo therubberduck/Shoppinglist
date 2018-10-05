@@ -1,7 +1,6 @@
 package dk.redweb.shoppinglist.FrontEnd.PrefixSuffix
 
 import android.content.Context
-import android.text.TextWatcher
 import com.wealthfront.magellan.Screen
 import dk.redweb.shoppinglist.FrontEnd.MainActivity
 import dk.redweb.shoppinglist.R
@@ -21,17 +20,19 @@ class PrefixSuffixScreen(private val _viewModel: MainViewModel, private val item
         view.edtPrefix.setText(item.getPrefix())
         view.edtSuffix.setText(item.getSuffix())
 
-        view.edtPrefix.afterTextChanged { updateTextView() }
-        view.edtSuffix.afterTextChanged { updateTextView() }
+        view.edtPrefix.afterTextChanged { updatePreview() }
+        view.edtSuffix.afterTextChanged { updatePreview() }
 
         view.btnCommit.setOnClickListener {updateItem()}
 
         return view
     }
 
-    fun updateTextView(){
-        val newText = view.edtPrefix.text.toString() + " " + item.getName() + " " + view.edtSuffix.text.toString()
-        view.txtName.text = newText
+    fun updatePreview(){
+        val prefix = view.edtPrefix.text.toString()
+        val name = item.getName()
+        val suffix = view.edtSuffix.text.toString()
+        view.txtName.text = item.getFullName(prefix, name, suffix)
     }
 
     fun updateItem() {

@@ -40,7 +40,19 @@ open class Item(private var _id: Long, private var _name: String, private var _o
     }
 
     fun getFullName(): String {
-        return _prefix + " " + _name + " " + _suffix
+        return getFullName(_prefix, _name, _suffix)
+    }
+
+    fun getFullName(prefix: String, name: String, suffix: String): String {
+        var fullname = name
+        if(prefix.isNotBlank()) {
+            fullname = prefix + " " + fullname
+        }
+        if(suffix.isNotBlank()) {
+            fullname = fullname + " " + suffix
+        }
+
+        return fullname
     }
 
     fun updatePrefixSuffix(prefix: String, suffix: String) {
