@@ -39,4 +39,8 @@ class FilterListScreen(private val _viewModel: MainViewModel) : Screen<FilterLis
     override fun recyclerViewIsEmpty(isEmpty: Boolean) {
         view.txtEmptyList.visibleIf(activity) { return@visibleIf isEmpty }
     }
+
+    fun openSuffixPrefixScreen(item: Item) {
+        (activity as MainActivity).navigator().goTo(PrefixSuffixScreen(_viewModel, item))
+    }
 }

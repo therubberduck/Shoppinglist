@@ -38,7 +38,7 @@ class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, priva
             }
         }
         holder.cell.btnAmount.setOnClickListener {
-            (screen.activity as MainActivity).navigator().goTo(PrefixSuffixScreen(_viewModel, item))
+            screen.openSuffixPrefixScreen(item)
         }
         holder.cell.setOnLongClickListener {
             companionViews.showLongClickMenu(holder)
