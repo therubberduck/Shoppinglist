@@ -25,7 +25,7 @@ class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private v
     override fun onBindViewHolder(holder: ViewHolder, position:Int) {
         val item = _viewModel.getItem(position, true)
         holder.item = item
-        holder.txtTitle.text = item.getName()
+        holder.txtTitle.text = item.getFullName()
         holder.callback = item.observeOnList(this) {
             if(it == false) {
                 item.unobserveOnList(this)
