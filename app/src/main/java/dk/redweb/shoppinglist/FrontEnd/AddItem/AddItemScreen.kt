@@ -30,6 +30,8 @@ class AddItemScreen(private val _viewModel: MainViewModel, private val item: Ite
 
             view.edtPrefix.visibility = View.VISIBLE
             view.edtSuffix.visibility = View.VISIBLE
+
+            view.edtName.afterTextChanged { updatePrefixSuffixPreview() }
             view.edtPrefix.afterTextChanged { updatePrefixSuffixPreview() }
             view.edtSuffix.afterTextChanged { updatePrefixSuffixPreview() }
 

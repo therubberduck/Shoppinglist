@@ -40,12 +40,16 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
     fun editItem(item: Item) {
         _db.Items.updateItem(item)
 
+        handleUpdateItem()
+
         doCallback(_itemsSubscription.values, _items)
         doCallback(_selectedItemsSubscription.values, _selectedItems)
     }
 
     fun updateItemPrefixSuffix(item: Item) {
         _db.Items.updatePrefixSuffix(item)
+
+        handleUpdateItem()
 
         doCallback(_itemsSubscription.values, _items)
         doCallback(_selectedItemsSubscription.values, _selectedItems)
@@ -77,6 +81,11 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
         _items.add(item)
         _items.sortBy { item -> item.getName() }
         doCallback(_itemsSubscription.values, _items)
+    }
+
+    private fun handleUpdateItem() {
+        _selectedItems.sortBy { item -> item.getName() }
+        _items.sortBy { item -> item.getName() }
     }
 
     private fun handleRemoveItem(item: Item) {
