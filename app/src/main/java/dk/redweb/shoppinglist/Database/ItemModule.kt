@@ -3,7 +3,6 @@ package dk.redweb.shoppinglist.Database
 import android.content.ContentValues
 import dk.redweb.shoppinglist.Database.Model.DbItem
 import dk.redweb.shoppinglist.ViewModel.Item
-import kotlinx.coroutines.experimental.selects.select
 import org.jetbrains.anko.db.*
 
 /**
@@ -11,7 +10,7 @@ import org.jetbrains.anko.db.*
  */
 class ItemModule : Dbmodule() {
     fun initialize(db: AppDatabase) {
-        _db = db;
+        _db = db
     }
 
     fun createItem(name: String, callback: ((Long) -> Unit)? = null){
@@ -58,7 +57,7 @@ class ItemModule : Dbmodule() {
 
     fun removeItem(itemId: Long) {
         _db.use {
-            val whereString = ItemSchema.id + "=" + itemId;
+            val whereString = ItemSchema.id + "=" + itemId
             delete(ItemSchema.tableName, whereString)
         }
     }

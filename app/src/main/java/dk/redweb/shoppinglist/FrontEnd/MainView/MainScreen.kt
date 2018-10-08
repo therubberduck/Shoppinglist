@@ -1,8 +1,6 @@
 package dk.redweb.shoppinglist.FrontEnd.MainView
 
 import android.content.Context
-import android.view.View
-import com.wealthfront.magellan.BaseScreenView
 import com.wealthfront.magellan.Screen
 import com.wealthfront.magellan.ScreenGroup
 

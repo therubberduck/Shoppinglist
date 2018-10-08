@@ -3,8 +3,6 @@ package dk.redweb.shoppinglist.FrontEnd
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import dk.redweb.shoppinglist.R
@@ -36,6 +34,6 @@ class NavigationBar(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
     }
 
     fun setTitle(title: String) {
-        _txtTitle.setText(title)
+        _txtTitle.text = title
     }
 }

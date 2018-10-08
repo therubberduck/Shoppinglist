@@ -40,7 +40,7 @@ class AddItemView(context: Context?) : BaseScreenView<AddItemScreen>(context) {
 
     fun setFieldsContents(name: String, fullname: String, prefix: String, suffix: String) {
         _edtName.setText(name)
-        _txtPreviewName.setText(fullname)
+        _txtPreviewName.text = fullname
         _edtPrefix.setText(prefix)
         _edtSuffix.setText(suffix)
     }
@@ -62,7 +62,7 @@ class AddItemView(context: Context?) : BaseScreenView<AddItemScreen>(context) {
     }
 
     fun updatePreviewName(preview: String) {
-        _txtPreviewName.setText(preview)
+        _txtPreviewName.text = preview
     }
 
     fun getName() : String {

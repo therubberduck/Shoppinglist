@@ -15,13 +15,13 @@ import kotlinx.android.synthetic.main.cell_filterlist.view.*
 class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, private val recInterface: RecyclerViewInterface, private val screen: FilterListScreen, private val subViews: FilterListSubViews): RecyclerView.Adapter<FilterListRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): ViewHolder {
-        val view = LayoutInflater.from(parent.getContext())
+        val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.cell_filterlist, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position:Int) {
-        val item = _viewModel.getItem(position, false);
+        val item = _viewModel.getItem(position, false)
         holder.item = item
         holder.txtTitle.text = item.getFullName()
         item.observeOnList(this) {itemIsChecked ->
@@ -67,7 +67,7 @@ class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, priva
         }
 
         override fun toString():String {
-            return super.toString() + " '" + txtTitle.getText() + "'"
+            return super.toString() + " '" + txtTitle.text + "'"
         }
     }
 }

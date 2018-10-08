@@ -1,10 +1,7 @@
 package dk.redweb.shoppinglist.FrontEnd.MainView.OnListFragment
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
 import com.wealthfront.magellan.Screen
-import dk.redweb.shoppinglist.FrontEnd.Custom.RecyclerViewInterface
-import dk.redweb.shoppinglist.Utility.visibleIf
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
 
 class OnListScreen(private val _viewModel: MainViewModel) : Screen<OnListView>() {
@@ -18,7 +15,7 @@ class OnListScreen(private val _viewModel: MainViewModel) : Screen<OnListView>()
         view.setListAdapter(_adapter)
 
         _viewModel.observeSelectedItems(this) {
-            _adapter!!.notifyDataSetChanged();
+            _adapter.notifyDataSetChanged()
         }
 
         return view

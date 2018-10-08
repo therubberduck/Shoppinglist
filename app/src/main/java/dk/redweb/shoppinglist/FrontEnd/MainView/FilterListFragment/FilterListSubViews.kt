@@ -1,7 +1,6 @@
 package dk.redweb.shoppinglist.FrontEnd.MainView.FilterListFragment
 
 import android.content.Context
-import android.content.DialogInterface
 import android.widget.PopupMenu
 import dk.redweb.shoppinglist.FrontEnd.DialogFactory
 import dk.redweb.shoppinglist.R

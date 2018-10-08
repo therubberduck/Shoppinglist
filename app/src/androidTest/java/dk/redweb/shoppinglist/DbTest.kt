@@ -111,7 +111,7 @@ class DbTest : BaseTest("DbTest") {
 
         //Act
         runBlocking {
-            _db.Items.getItems() {
+            _db.Items.getItems {
                 items = it
             }
         }

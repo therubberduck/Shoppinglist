@@ -3,8 +3,9 @@ package dk.redweb.shoppinglist.FrontEnd.MainView.FilterListFragment
 import android.content.Context
 import com.wealthfront.magellan.Screen
 import dk.redweb.shoppinglist.FrontEnd.AddItem.AddItemScreen
-import dk.redweb.shoppinglist.FrontEnd.MainActivity
 import dk.redweb.shoppinglist.FrontEnd.PrefixSuffix.PrefixSuffixScreen
+import dk.redweb.shoppinglist.Utility.gotoScreen
+import dk.redweb.shoppinglist.Utility.showScreen
 import dk.redweb.shoppinglist.ViewModel.Item
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
 
@@ -29,15 +30,14 @@ class FilterListScreen(private val _viewModel: MainViewModel) : Screen<FilterLis
     }
 
     private fun addItem() {
-        val addItemScreen = AddItemScreen(_viewModel)
-        (activity as MainActivity).navigator().show(addItemScreen)
+        AddItemScreen(_viewModel).showScreen()
     }
 
     fun openSuffixPrefixScreen(item: Item) {
-        (activity as MainActivity).navigator().goTo(PrefixSuffixScreen(_viewModel, item))
+        PrefixSuffixScreen(_viewModel, item).gotoScreen()
     }
 
     fun openEditScreen(item: Item) {
-        (activity as MainActivity).navigator().goTo(AddItemScreen(_viewModel, item))
+        AddItemScreen(_viewModel, item).gotoScreen()
     }
 }

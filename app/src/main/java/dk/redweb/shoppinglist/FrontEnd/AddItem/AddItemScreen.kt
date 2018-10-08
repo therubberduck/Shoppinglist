@@ -4,9 +4,9 @@ import android.content.Context
 import android.support.design.widget.TextInputLayout
 import com.wealthfront.magellan.Screen
 import dk.redweb.shoppinglist.FrontEnd.DialogFactory
-import dk.redweb.shoppinglist.FrontEnd.MainActivity
 import dk.redweb.shoppinglist.R
 import dk.redweb.shoppinglist.Utility.hideKeyboard
+import dk.redweb.shoppinglist.Utility.navigateBack
 import dk.redweb.shoppinglist.ViewModel.Item
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
 import org.jetbrains.anko.find
@@ -24,7 +24,7 @@ class AddItemScreen(private val _viewModel: MainViewModel, private val item: Ite
 
             view.setCommitButton(R.string.screen_additem_edit) { editItem() }
 
-            view.setupPrefixSuffixUpdate() { updatePrefixSuffixPreview() }
+            view.setupPrefixSuffixUpdate { updatePrefixSuffixPreview() }
 
             //Set existing values
             view.setFieldsContents(item.getName(), item.getFullName(), item.getPrefix(), item.getSuffix())
@@ -57,7 +57,7 @@ class AddItemScreen(private val _viewModel: MainViewModel, private val item: Ite
         activity.hideKeyboard()
 
         _viewModel.createItem(name)
-        (activity as MainActivity).navigator().goBack()
+        navigateBack()
     }
 
     fun editItem() {
@@ -83,6 +83,6 @@ class AddItemScreen(private val _viewModel: MainViewModel, private val item: Ite
         item.updatePrefixSuffix(prefix, suffix)
 
         _viewModel.editItem(item)
-        (activity as MainActivity).navigator().goBack()
+        navigateBack()
     }
 }

@@ -1,7 +1,6 @@
 package dk.redweb.shoppinglist.FrontEnd
 
 import android.os.Bundle
-import android.os.Debug
 import com.crashlytics.android.Crashlytics
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.wealthfront.magellan.Navigator

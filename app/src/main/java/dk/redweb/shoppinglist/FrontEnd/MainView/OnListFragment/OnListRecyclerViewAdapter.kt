@@ -18,7 +18,7 @@ import dk.redweb.shoppinglist.ViewModel.MainViewModel
 class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private val recInterface: RecyclerViewInterface, private val screen: OnListScreen): RecyclerView.Adapter<OnListRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): ViewHolder {
-        val view = LayoutInflater.from(parent.getContext())
+        val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.cell_onlist, parent, false)
         return ViewHolder(view)
     }
@@ -68,7 +68,7 @@ class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private v
         }
 
         override fun toString():String {
-            return super.toString() + " '" + txtTitle.getText() + "'"
+            return super.toString() + " '" + txtTitle.text + "'"
         }
     }
 }

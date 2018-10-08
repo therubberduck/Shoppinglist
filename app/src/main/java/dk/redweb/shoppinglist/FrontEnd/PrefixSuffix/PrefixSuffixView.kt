@@ -33,7 +33,7 @@ class PrefixSuffixView(context: Context?) : BaseScreenView<PrefixSuffixScreen>(c
     }
 
     fun setFieldsContents(name: String, prefix: String, suffix: String) {
-        _txtName.setText(name)
+        _txtName.text = name
         _edtPrefix.setText(prefix)
         _edtSuffix.setText(suffix)
     }
@@ -51,7 +51,7 @@ class PrefixSuffixView(context: Context?) : BaseScreenView<PrefixSuffixScreen>(c
     }
 
     fun updatePreviewName(preview: String) {
-        _txtName.setText(preview)
+        _txtName.text = preview
     }
 
     fun getPrefix() : String {

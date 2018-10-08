@@ -1,7 +1,6 @@
 package dk.redweb.shoppinglist.ViewModel
 
 import dk.redweb.shoppinglist.Database.Model.DbItem
-import kotlin.properties.Delegates
 
 /**
  * Created by redwebpraktik on 13/02/2018.
@@ -28,7 +27,7 @@ open class Item(private var _id: Long, private var _name: String, private var _o
     }
 
     fun isOnList(): Boolean {
-        return _onList;
+        return _onList
     }
 
     fun getPrefix(): String {

@@ -2,9 +2,9 @@ package dk.redweb.shoppinglist.FrontEnd.PrefixSuffix
 
 import android.content.Context
 import com.wealthfront.magellan.Screen
-import dk.redweb.shoppinglist.FrontEnd.MainActivity
 import dk.redweb.shoppinglist.R
 import dk.redweb.shoppinglist.Utility.hideKeyboard
+import dk.redweb.shoppinglist.Utility.navigateBack
 import dk.redweb.shoppinglist.ViewModel.Item
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
 
@@ -37,6 +37,6 @@ class PrefixSuffixScreen(private val _viewModel: MainViewModel, private val item
         item.updatePrefixSuffix(prefix, suffix)
         _viewModel.updateItemPrefixSuffix(item)
 
-        (activity as MainActivity).navigator().goBack()
+        navigateBack()
     }
 }

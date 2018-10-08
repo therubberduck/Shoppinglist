@@ -24,7 +24,7 @@ open class BaseTest(classname: String?) {
     }
 
     fun finishTest() {
-        MyLog.v("androidTest", _classname + ":" + Thread.currentThread().stackTrace[3].methodName + ": is successful");
+        MyLog.v("androidTest", _classname + ":" + Thread.currentThread().stackTrace[3].methodName + ": is successful")
         _testsRun++
     }
 }
