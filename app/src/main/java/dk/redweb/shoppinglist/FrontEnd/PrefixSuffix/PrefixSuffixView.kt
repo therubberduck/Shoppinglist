@@ -8,22 +8,57 @@ import android.widget.TextView
 import com.wealthfront.magellan.BaseScreenView
 import dk.redweb.shoppinglist.FrontEnd.NavigationBar
 import dk.redweb.shoppinglist.R
+import dk.redweb.shoppinglist.Utility.afterTextChanged
 import org.jetbrains.anko.find
 
 class PrefixSuffixView(context: Context?) : BaseScreenView<PrefixSuffixScreen>(context) {
-    val navbar: NavigationBar
-    val txtName: TextView
-    val edtPrefix: EditText
-    val edtSuffix: EditText
-    val btnCommit: Button
+    private val _navbar: NavigationBar
+    private val _txtName: TextView
+    private val _edtPrefix: EditText
+    private val _edtSuffix: EditText
+    private val _btnCommit: Button
 
     init {
         View.inflate(context, R.layout.screen_prefixsuffix, this)
 
-        navbar = find(R.id.navbar)
-        txtName = find(R.id.txtFormattedName)
-        edtPrefix = find(R.id.edtItemPrefix)
-        edtSuffix = find(R.id.edtItemSuffix)
-        btnCommit = find(R.id.btnCommit)
+        _navbar = find(R.id.navbar)
+        _txtName = find(R.id.txtPreviewName)
+        _edtPrefix = find(R.id.edtItemPrefix)
+        _edtSuffix = find(R.id.edtItemSuffix)
+        _btnCommit = find(R.id.btnCommit)
+    }
+
+    fun setNavTitle(resId: Int) {
+        _navbar.setTitle(resId)
+    }
+
+    fun setFieldsContents(name: String, prefix: String, suffix: String) {
+        _txtName.setText(name)
+        _edtPrefix.setText(prefix)
+        _edtSuffix.setText(suffix)
+    }
+
+    fun setCommitButton(resId: Int? = null, listener: (View) -> Unit) {
+        if(resId != null) {
+            _btnCommit.setText(resId)
+        }
+        _btnCommit.setOnClickListener(listener)
+    }
+
+    fun setupPrefixSuffixUpdate(listener: () -> Unit) {
+        _edtPrefix.afterTextChanged { listener() }
+        _edtSuffix.afterTextChanged { listener() }
+    }
+
+    fun updatePreviewName(preview: String) {
+        _txtName.setText(preview)
+    }
+
+    fun getPrefix() : String {
+        return _edtPrefix.text.toString()
+    }
+
+    fun getSuffix() : String {
+        return _edtSuffix.text.toString()
     }
 }

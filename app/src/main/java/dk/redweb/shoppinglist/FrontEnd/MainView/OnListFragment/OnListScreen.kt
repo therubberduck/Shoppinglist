@@ -7,25 +7,20 @@ import dk.redweb.shoppinglist.FrontEnd.Custom.RecyclerViewInterface
 import dk.redweb.shoppinglist.Utility.visibleIf
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
 
-class OnListScreen(private val _viewModel: MainViewModel) : Screen<OnListView>(), RecyclerViewInterface {
+class OnListScreen(private val _viewModel: MainViewModel) : Screen<OnListView>() {
 
-    private var _adapter: OnListRecyclerViewAdapter? = null
+    private lateinit var _adapter: OnListRecyclerViewAdapter
 
     override fun createView(context: Context?): OnListView {
-        val view = OnListView(context)
+        val view = OnListView(activity)
 
-        view.list.layoutManager = LinearLayoutManager(context)
-        _adapter = OnListRecyclerViewAdapter(_viewModel, this)
-        view.list.adapter = _adapter
+        _adapter = OnListRecyclerViewAdapter(_viewModel, view, this)
+        view.setListAdapter(_adapter)
 
         _viewModel.observeSelectedItems(this) {
             _adapter!!.notifyDataSetChanged();
         }
 
         return view
-    }
-
-    override fun recyclerViewIsEmpty(isEmpty: Boolean) {
-        view.txtEmptyList.visibleIf(activity) { return@visibleIf isEmpty }
     }
 }

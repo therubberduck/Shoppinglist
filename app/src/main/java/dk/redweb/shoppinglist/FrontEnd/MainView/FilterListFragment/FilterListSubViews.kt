@@ -8,7 +8,7 @@ import dk.redweb.shoppinglist.R
 import dk.redweb.shoppinglist.ViewModel.Item
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
 
-class FilterListCompanionViews(private val _screen: FilterListScreen, private val _viewModel: MainViewModel) {
+class FilterListSubViews(private val _screen: FilterListScreen, private val _viewModel: MainViewModel) {
 
     fun showLongClickMenu(holder: FilterListRecyclerViewAdapter.ViewHolder) {
         val menu: PopupMenu = PopupMenu(holder.cell.context, holder.cell )

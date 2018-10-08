@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import dk.redweb.shoppinglist.FrontEnd.Custom.RecyclerViewInterface
 import dk.redweb.shoppinglist.R
 import dk.redweb.shoppinglist.ViewModel.Item
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
@@ -14,7 +15,7 @@ import dk.redweb.shoppinglist.ViewModel.MainViewModel
  * Created by redwebpraktik on 13/02/2018.
  */
 
-class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private val screen: OnListScreen): RecyclerView.Adapter<OnListRecyclerViewAdapter.ViewHolder>() {
+class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private val recInterface: RecyclerViewInterface, private val screen: OnListScreen): RecyclerView.Adapter<OnListRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): ViewHolder {
         val view = LayoutInflater.from(parent.getContext())
@@ -47,10 +48,10 @@ class OnListRecyclerViewAdapter(private val _viewModel: MainViewModel, private v
     override fun getItemCount():Int {
         val count = _viewModel.getCount(true)
         if(count == 0) {
-            screen.recyclerViewIsEmpty(true)
+            recInterface.recyclerViewIsEmpty(true)
             return 0
         }
-        screen.recyclerViewIsEmpty(false)
+        recInterface.recyclerViewIsEmpty(false)
         return count
     }
 

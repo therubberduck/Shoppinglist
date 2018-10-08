@@ -2,12 +2,10 @@ package dk.redweb.shoppinglist.FrontEnd.AddItem
 
 import android.content.Context
 import android.support.design.widget.TextInputLayout
-import android.view.View
 import com.wealthfront.magellan.Screen
 import dk.redweb.shoppinglist.FrontEnd.DialogFactory
 import dk.redweb.shoppinglist.FrontEnd.MainActivity
 import dk.redweb.shoppinglist.R
-import dk.redweb.shoppinglist.Utility.afterTextChanged
 import dk.redweb.shoppinglist.Utility.hideKeyboard
 import dk.redweb.shoppinglist.ViewModel.Item
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
@@ -18,28 +16,18 @@ class AddItemScreen(private val _viewModel: MainViewModel, private val item: Ite
         val view = AddItemView(context)
 
         if(item == null) {
-            view.navbar.setTitle(R.string.screen_additem_addtitle)
-
-            view.btnCommit.setOnClickListener {addItem()}
+            view.setNavTitle(R.string.screen_additem_addtitle)
+            view.setCommitButton { addItem() }
         }
         else {
-            view.navbar.setTitle(R.string.screen_additem_edittitle)
+            view.setNavTitle(R.string.screen_additem_edittitle)
 
-            view.btnCommit.setText(R.string.screen_additem_edit)
-            view.btnCommit.setOnClickListener {editItem()}
+            view.setCommitButton(R.string.screen_additem_edit) { editItem() }
 
-            view.edtPrefix.visibility = View.VISIBLE
-            view.edtSuffix.visibility = View.VISIBLE
-
-            view.edtName.afterTextChanged { updatePrefixSuffixPreview() }
-            view.edtPrefix.afterTextChanged { updatePrefixSuffixPreview() }
-            view.edtSuffix.afterTextChanged { updatePrefixSuffixPreview() }
+            view.setupPrefixSuffixUpdate() { updatePrefixSuffixPreview() }
 
             //Set existing values
-            view.edtName.setText(item.getName())
-            view.txtFormattedName.setText(item.getFullName())
-            view.edtPrefix.setText(item.getPrefix())
-            view.edtSuffix.setText(item.getSuffix())
+            view.setFieldsContents(item.getName(), item.getFullName(), item.getPrefix(), item.getSuffix())
         }
 
         return view
@@ -49,19 +37,19 @@ class AddItemScreen(private val _viewModel: MainViewModel, private val item: Ite
         if(view == null) {
             return
         }
-        val prefix = view.edtPrefix.text.toString()
-        val name = view.edtName.text.toString()
-        val suffix = view.edtSuffix.text.toString()
-        view.txtFormattedName.text = item!!.getFullName(prefix, name, suffix)
+        val prefix = view.getPrefix()
+        val name = view.getName()
+        val suffix = view.getSuffix()
+        view.updatePreviewName(item!!.getFullName(prefix, name, suffix))
     }
 
     fun addItem() {
-        val name = view.edtName.text.toString()
+        val name = view.getName()
 
         if(name.isBlank()) {
             val hint = view.find<TextInputLayout>(R.id.tilItemName).hint.toString()
             DialogFactory(activity).showValidationDialog(R.string.validation_fieldempty, hint) {dialog, i ->
-                view.edtName.requestFocus()
+                view.requestFocus_Name()
             }
             return
         }
@@ -73,14 +61,14 @@ class AddItemScreen(private val _viewModel: MainViewModel, private val item: Ite
     }
 
     fun editItem() {
-        val name = view.edtName.text.toString()
-        val prefix = view.edtPrefix.text.toString()
-        val suffix = view.edtSuffix.text.toString()
+        val name = view.getName()
+        val prefix = view.getPrefix()
+        val suffix = view.getSuffix()
 
         if(name.isBlank()) {
             val hint = view.find<TextInputLayout>(R.id.tilItemName).hint.toString()
             DialogFactory(activity).showValidationDialog(R.string.validation_fieldempty, hint) {dialog, i ->
-                view.edtName.requestFocus()
+                view.requestFocus_Name()
             }
             return
         }

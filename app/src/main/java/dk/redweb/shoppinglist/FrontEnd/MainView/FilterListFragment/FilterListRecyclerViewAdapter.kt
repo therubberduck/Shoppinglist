@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
-import dk.redweb.shoppinglist.FrontEnd.MainActivity
-import dk.redweb.shoppinglist.FrontEnd.PrefixSuffix.PrefixSuffixScreen
+import dk.redweb.shoppinglist.FrontEnd.Custom.RecyclerViewInterface
 import dk.redweb.shoppinglist.R
 import dk.redweb.shoppinglist.ViewModel.Item
 import dk.redweb.shoppinglist.ViewModel.MainViewModel
 import kotlinx.android.synthetic.main.cell_filterlist.view.*
 
-class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, private val screen: FilterListScreen, private val companionViews: FilterListCompanionViews): RecyclerView.Adapter<FilterListRecyclerViewAdapter.ViewHolder>() {
+class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, private val recInterface: RecyclerViewInterface, private val screen: FilterListScreen, private val subViews: FilterListSubViews): RecyclerView.Adapter<FilterListRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): ViewHolder {
         val view = LayoutInflater.from(parent.getContext())
@@ -41,17 +40,17 @@ class FilterListRecyclerViewAdapter(private val _viewModel: MainViewModel, priva
             screen.openSuffixPrefixScreen(item)
         }
         holder.cell.setOnLongClickListener {
-            companionViews.showLongClickMenu(holder)
+            subViews.showLongClickMenu(holder)
             true
         }
     }
 
     override fun getItemCount():Int {
         if(_viewModel.getCount() == 0) {
-            screen.recyclerViewIsEmpty(true)
+            recInterface.recyclerViewIsEmpty(true)
             return 0
         }
-        screen.recyclerViewIsEmpty(false)
+        recInterface.recyclerViewIsEmpty(false)
         return _viewModel.getCount()
     }
 

@@ -1,24 +1,41 @@
 package dk.redweb.shoppinglist.FrontEnd.MainView.FilterListFragment
 
+import android.app.Activity
 import android.content.Context
 import android.support.design.widget.FloatingActionButton
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.wealthfront.magellan.BaseScreenView
+import dk.redweb.shoppinglist.FrontEnd.Custom.RecyclerViewInterface
 import dk.redweb.shoppinglist.R
+import dk.redweb.shoppinglist.Utility.visibleIf
 
-class FilterListView(context: Context?) : BaseScreenView<FilterListScreen>(context) {
+class FilterListView(val activity: Activity) : BaseScreenView<FilterListScreen>(activity), RecyclerViewInterface {
 
-    val list: RecyclerView
-    val txtEmptyList: TextView
-    val fabAddItem: FloatingActionButton
+    private val _list: RecyclerView
+    private val _txtEmptyList: TextView
+    private val _fabAddItem: FloatingActionButton
 
     init {
         View.inflate(context, R.layout.screen_filter_list, this)
 
-        list = findViewById(R.id.list)
-        txtEmptyList = findViewById(R.id.txtEmptyList)
-        fabAddItem = findViewById(R.id.fabAdd)
+        _list = findViewById(R.id.list)
+        _txtEmptyList = findViewById(R.id.txtEmptyList)
+        _fabAddItem = findViewById(R.id.fabAdd)
+    }
+
+    override fun recyclerViewIsEmpty(isEmpty: Boolean) {
+        _txtEmptyList.visibleIf(activity) { return@visibleIf isEmpty }
+    }
+
+    fun setListAdapter(adapter: FilterListRecyclerViewAdapter) {
+        _list.layoutManager = LinearLayoutManager(context)
+        _list.adapter = adapter
+    }
+
+    fun setAddButton(listener: (View) -> Unit) {
+        _fabAddItem.setOnClickListener(listener)
     }
 }
