@@ -16,6 +16,7 @@ class PrefixSuffixView(context: Context?) : BaseScreenView<PrefixSuffixScreen>(c
     private val _txtName: TextView
     private val _edtPrefix: EditText
     private val _edtSuffix: EditText
+    private val _btnClear: Button
     private val _btnCommit: Button
 
     init {
@@ -25,6 +26,7 @@ class PrefixSuffixView(context: Context?) : BaseScreenView<PrefixSuffixScreen>(c
         _txtName = find(R.id.txtPreviewName)
         _edtPrefix = find(R.id.edtItemPrefix)
         _edtSuffix = find(R.id.edtItemSuffix)
+        _btnClear = find(R.id.btnClear)
         _btnCommit = find(R.id.btnCommit)
     }
 
@@ -38,10 +40,11 @@ class PrefixSuffixView(context: Context?) : BaseScreenView<PrefixSuffixScreen>(c
         _edtSuffix.setText(suffix)
     }
 
-    fun setCommitButton(resId: Int? = null, listener: (View) -> Unit) {
-        if(resId != null) {
-            _btnCommit.setText(resId)
-        }
+    fun setClearButton(listener: (View) -> Unit) {
+        _btnClear.setOnClickListener(listener)
+    }
+
+    fun setCommitButton(listener: (View) -> Unit) {
         _btnCommit.setOnClickListener(listener)
     }
 

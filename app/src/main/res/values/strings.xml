@@ -11,7 +11,8 @@
     <string name="screen_additem_edit">Edit</string>
 
     <string name="screen_prefixsuffix_title">Amounts</string>
-    <string name="screen_prefixsuffix_commit">Update</string>
+    <string name="screen_prefixsuffix_clear">Clear</string>
+    <string name="screen_prefixsuffix_commit">Set</string>
 
     <string name="dialog_delete_title">Delete Item</string>
     <string name="dialog_delete_message">Do you wish to delete %1$s</string>

@@ -15,17 +15,27 @@ class PrefixSuffixScreen(private val _viewModel: MainViewModel, private val item
         view.setNavTitle(R.string.screen_prefixsuffix_title)
         view.setFieldsContents(item.getFullName(), item.getPrefix(), item.getSuffix())
         view.setupPrefixSuffixUpdate { updatePreview() }
+        view.setClearButton { clearPrefixSuffix() }
         view.setCommitButton { updateItem() }
 
         return view
     }
 
-    fun updatePreview(){
+    fun updatePreview() {
         val prefix = view.getPrefix()
         val name = item.getName()
         val suffix = view.getSuffix()
 
         view.updatePreviewName(item.getFullName(prefix, name, suffix))
+    }
+
+    fun clearPrefixSuffix() {
+        activity.hideKeyboard()
+
+        item.updatePrefixSuffix("", "")
+        _viewModel.updateItemPrefixSuffix(item)
+
+        navigateBack()
     }
 
     fun updateItem() {
