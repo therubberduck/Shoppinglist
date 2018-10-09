@@ -46,15 +46,6 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
         doCallback(_selectedItemsSubscription.values, _selectedItems)
     }
 
-    fun updateItemPrefixSuffix(item: Item) {
-        _db.Items.updatePrefixSuffix(item)
-
-        handleUpdateItem()
-
-        doCallback(_itemsSubscription.values, _items)
-        doCallback(_selectedItemsSubscription.values, _selectedItems)
-    }
-
     fun deleteItem(item: Item) {
         _db.Items.removeItem(item.getId())
         handleRemoveItem(item)

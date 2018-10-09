@@ -33,7 +33,7 @@ class PrefixSuffixScreen(private val _viewModel: MainViewModel, private val item
         activity.hideKeyboard()
 
         item.updatePrefixSuffix("", "")
-        _viewModel.updateItemPrefixSuffix(item)
+        _viewModel.editItem(item)
 
         navigateBack()
     }
@@ -45,7 +45,7 @@ class PrefixSuffixScreen(private val _viewModel: MainViewModel, private val item
         activity.hideKeyboard()
 
         item.updatePrefixSuffix(prefix, suffix)
-        _viewModel.updateItemPrefixSuffix(item)
+        _viewModel.editItem(item)
 
         navigateBack()
     }

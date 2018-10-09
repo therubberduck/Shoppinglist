@@ -78,18 +78,7 @@ class ItemModule : Dbmodule() {
         contentValues.put(ItemSchema.name, item.getName())
         contentValues.put(ItemSchema.prefix, item.getPrefix())
         contentValues.put(ItemSchema.suffix, item.getSuffix())
-
-        val whereString = ItemSchema.id + "=" + item.getId()
-
-        _db.use {
-            update(ItemSchema.tableName, contentValues, whereString, null)
-        }
-    }
-
-    fun updatePrefixSuffix(item: Item) {
-        val contentValues = ContentValues()
-        contentValues.put(ItemSchema.prefix, item.getPrefix())
-        contentValues.put(ItemSchema.suffix, item.getSuffix())
+        contentValues.put(ItemSchema.onList, item.isOnList())
 
         val whereString = ItemSchema.id + "=" + item.getId()
 
