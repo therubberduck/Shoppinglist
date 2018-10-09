@@ -30,14 +30,14 @@ class FilterListScreen(private val _viewModel: MainViewModel) : Screen<FilterLis
     }
 
     private fun addItem() {
-        AddItemScreen(_viewModel).showScreen()
+        showScreen(AddItemScreen(_viewModel))
     }
 
     fun openSuffixPrefixScreen(item: Item) {
-        PrefixSuffixScreen(_viewModel, item).gotoScreen()
+        gotoScreen(PrefixSuffixScreen(_viewModel, item))
     }
 
     fun openEditScreen(item: Item) {
-        AddItemScreen(_viewModel, item).gotoScreen()
+        gotoScreen(AddItemScreen(_viewModel, item))
     }
 }
