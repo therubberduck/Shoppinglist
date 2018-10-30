@@ -21,6 +21,19 @@ class TagsViewModel(private val _db: AppDatabase) : BaseViewModel() {
         }
     }
 
+    fun createTag(name: String, type: Int) {
+        _db.Tags.createTag(name, type) {
+            _db.Tags.getTag(it) {
+                val tag = Tag(it)
+                handleAddItem(tag)
+            }
+        }
+    }
+
+    fun updateTag(tag: Tag) {
+        _db.Tags.updateTag(tag)
+    }
+
     fun deleteTag(tag: Tag) {
         _db.Tags.removeTag(tag.getId())
         handleRemoveTag(tag)
@@ -44,5 +57,9 @@ class TagsViewModel(private val _db: AppDatabase) : BaseViewModel() {
 
     fun getCount() : Int {
         return _tags.size
+    }
+
+    fun observeTags(key: Any, callback: (item: MutableList<Tag>) -> Unit) {
+        _tagsSubscription.put(key, callback)
     }
 }

@@ -15,7 +15,7 @@ class TagListRecyclerViewAdapter(private val _viewModel: TagsViewModel, private 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType:Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.cell_filterlist, parent, false)
+                .inflate(R.layout.cell_tag, parent, false)
         return ViewHolder(view)
     }
 
@@ -41,12 +41,10 @@ class TagListRecyclerViewAdapter(private val _viewModel: TagsViewModel, private 
 
 
     inner class ViewHolder( val cell: View): RecyclerView.ViewHolder(cell) {
-        val chkSelected: CheckBox
         val txtTitle: TextView
         var tag: Tag? = null
 
         init{
-            chkSelected = cell.findViewById<View>(R.id.chkSelected) as CheckBox
             txtTitle = cell.findViewById<View>(R.id.txtTitle) as TextView
         }
 

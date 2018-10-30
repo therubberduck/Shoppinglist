@@ -5,10 +5,20 @@
     <string name="itemprefix">Prefix</string>
     <string name="itemsuffix">Suffix</string>
 
+    <string name="tagname">Name</string>
+    <string name="tagtype">Type</string>
+    <string name="tagshop">Store</string>
+    <string name="tagfilter">Tag</string>
+
     <string name="screen_additem_addtitle">Add Item</string>
     <string name="screen_additem_edittitle">Edit Item</string>
     <string name="screen_additem_commit">Add</string>
     <string name="screen_additem_edit">Edit</string>
+
+    <string name="screen_addtag_addtitle">Add Tag</string>
+    <string name="screen_addtag_edittitle">Edit Tag</string>
+    <string name="screen_addtag_commit">Add</string>
+    <string name="screen_addtag_edit">Edit</string>
 
     <string name="screen_prefixsuffix_title">Amounts</string>
     <string name="screen_prefixsuffix_clear">Clear</string>

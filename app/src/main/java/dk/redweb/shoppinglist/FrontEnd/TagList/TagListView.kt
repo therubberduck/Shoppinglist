@@ -33,4 +33,8 @@ class TagListView(val activity: Activity?) : BaseScreenView<TagListScreen>(activ
         _list.layoutManager = LinearLayoutManager(context)
         _list.adapter = adapter
     }
+
+    fun setAddButton(listener: (View) -> Unit) {
+        _fabAddTag.setOnClickListener(listener)
+    }
 }

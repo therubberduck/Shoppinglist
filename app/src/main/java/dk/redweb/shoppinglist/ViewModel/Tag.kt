@@ -2,9 +2,15 @@ package dk.redweb.shoppinglist.ViewModel
 
 import dk.redweb.shoppinglist.Database.Model.DbTag
 
-class Tag(private val _id: Long, private val _name: String, private val _type: Long) {
+class Tag(private val _id: Long, private var _name: String, private var _type: Int) {
 
-    constructor(dbTag: DbTag) : this(dbTag.id, dbTag.name, dbTag.type)
+    companion object {
+        val FilterType: Int = 1
+        val StoreType: Int = 2
+    }
+
+
+    constructor(dbTag: DbTag) : this(dbTag.id, dbTag.name, dbTag.type.toInt())
 
     fun getId(): Long {
         return _id
@@ -14,7 +20,15 @@ class Tag(private val _id: Long, private val _name: String, private val _type: L
         return _name
     }
 
-    fun getType(): Long {
+    fun setName(name: String) {
+        _name = name
+    }
+
+    fun getType(): Int {
         return _type
+    }
+
+    fun setType(type: Int) {
+        _type = type
     }
 }

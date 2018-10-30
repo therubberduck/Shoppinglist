@@ -3,6 +3,8 @@ package dk.redweb.shoppinglist.FrontEnd.TagList
 import android.content.Context
 import com.wealthfront.magellan.Screen
 import dk.redweb.shoppinglist.App
+import dk.redweb.shoppinglist.FrontEnd.AddTag.AddTagScreen
+import dk.redweb.shoppinglist.Utility.showScreen
 import dk.redweb.shoppinglist.ViewModel.TagsViewModel
 
 class TagListScreen : Screen<TagListView>() {
@@ -22,6 +24,16 @@ class TagListScreen : Screen<TagListView>() {
         _adapter = TagListRecyclerViewAdapter(_viewModel, view, _companionViews)
         view.setListAdapter(_adapter)
 
+        view.setAddButton { addItem() }
+
+        _viewModel.observeTags(this) {
+            _adapter.notifyDataSetChanged()
+        }
+
         return view
+    }
+
+    private fun addItem() {
+        showScreen(AddTagScreen(_viewModel))
     }
 }
