@@ -7,21 +7,14 @@ import dk.redweb.shoppinglist.ViewModel.MainViewModel
 class App : Application() {
 
     private lateinit var _db: AppDatabase
-    private lateinit var _viewmodel: MainViewModel
 
     override fun onCreate() {
         super.onCreate()
 
-        _db  = AppDatabase(this, "sldb", 2)
-
-        _viewmodel = MainViewModel(_db)
+        _db  = AppDatabase(this, "sldb")
     }
 
     fun getDatabase(): AppDatabase {
         return _db
-    }
-
-    fun getViewModel(): MainViewModel{
-        return _viewmodel
     }
 }

@@ -14,8 +14,10 @@
     <string name="screen_prefixsuffix_clear">Clear</string>
     <string name="screen_prefixsuffix_commit">Set</string>
 
-    <string name="dialog_delete_title">Delete Item</string>
-    <string name="dialog_delete_message">Do you wish to delete %1$s</string>
+    <string name="dialog_delete_item_title">Delete Item</string>
+    <string name="dialog_delete_item_message">Do you wish to delete %1$s</string>
+    <string name="dialog_delete_tag_title">Delete Tag</string>
+    <string name="dialog_delete_tag_message">Do you wish to delete %1$s</string>
     <string name="dialog_delete_button">Delete</string>
 
     <string name="dialog_default_errortitle">An Error Occured</string>

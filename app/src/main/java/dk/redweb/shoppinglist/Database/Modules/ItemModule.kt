@@ -1,7 +1,11 @@
-package dk.redweb.shoppinglist.Database
+package dk.redweb.shoppinglist.Database.Modules
 
 import android.content.ContentValues
+import dk.redweb.shoppinglist.Database.AppDatabase
+import dk.redweb.shoppinglist.Database.Dbmodule
 import dk.redweb.shoppinglist.Database.Model.DbItem
+import dk.redweb.shoppinglist.Database.Schemas.ItemSchema
+import dk.redweb.shoppinglist.Database.Schemas.ItemTagSchema
 import dk.redweb.shoppinglist.ViewModel.Item
 import org.jetbrains.anko.db.*
 
@@ -84,6 +88,23 @@ class ItemModule : Dbmodule() {
 
         _db.use {
             update(ItemSchema.tableName, contentValues, whereString, null)
+        }
+    }
+
+    fun addTag(itemId: Long, tagId: Long){
+        _db.use {
+            val id = insertOrThrow(
+                    ItemTagSchema.tableName,
+                    ItemTagSchema.itemId to itemId,
+                    ItemTagSchema.tagId to tagId
+            )
+        }
+    }
+
+    fun removeTag(itemTagId: Long) {
+        _db.use {
+            val whereString = ItemTagSchema.id + "=" + itemTagId
+            delete(ItemTagSchema.tableName, whereString)
         }
     }
 

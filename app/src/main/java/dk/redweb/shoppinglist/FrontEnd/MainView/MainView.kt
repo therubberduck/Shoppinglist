@@ -5,18 +5,23 @@ import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import com.wealthfront.magellan.BaseScreenView
 import com.wealthfront.magellan.Screen
+import dk.redweb.shoppinglist.FrontEnd.TagList.TagListScreen
 import dk.redweb.shoppinglist.R
+import org.jetbrains.anko.find
 
 class MainView(context: Context?, screens:List<Screen<*>>) : BaseScreenView<MainScreen>(context) {
 
-    private lateinit var _pager: ViewPager
+    private val _pager: ViewPager
+    val _btnMenu: ImageButton
 
     init {
         inflate(context, R.layout.activity_main, this)
 
-        _pager = findViewById(R.id.container)
+        _pager = find(R.id.container)
+        _btnMenu = find(R.id.btnMenu)
 
         initPager(context, screens)
     }

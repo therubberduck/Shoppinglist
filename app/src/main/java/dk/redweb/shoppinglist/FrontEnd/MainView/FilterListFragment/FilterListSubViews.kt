@@ -23,8 +23,8 @@ class FilterListSubViews(private val _screen: FilterListScreen, private val _vie
     }
 
     fun deleteItemDialog(context: Context, item: Item) {
-        val dialogFac = DialogFactory(context, R.string.dialog_delete_title)
-        dialogFac.message(context.getString(R.string.dialog_delete_message, item.getName()))
+        val dialogFac = DialogFactory(context, R.string.dialog_delete_item_title)
+        dialogFac.message(context.getString(R.string.dialog_delete_item_message, item.getName()))
         dialogFac.positiveButton(R.string.dialog_delete_button){ dialogInterface, i ->
             _viewModel.deleteItem(item)
         }

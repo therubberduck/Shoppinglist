@@ -70,7 +70,7 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
 
         //Handle Full List
         _items.add(item)
-        _items.sortBy { item -> item.getName() }
+        _items.sortBy { sort -> sort.getName() }
         doCallback(_itemsSubscription.values, _items)
     }
 

@@ -12,12 +12,14 @@ import dk.redweb.shoppinglist.FrontEnd.MainView.FilterListFragment.FilterListScr
 import dk.redweb.shoppinglist.FrontEnd.MainView.MainScreen
 import dk.redweb.shoppinglist.FrontEnd.MainView.OnListFragment.OnListScreen
 import dk.redweb.shoppinglist.R
+import dk.redweb.shoppinglist.ViewModel.MainViewModel
 import io.fabric.sdk.android.Fabric
 
 class MainActivity : SingleActivity() {
 
     private var _firebaseAnalytics: FirebaseAnalytics? = null
     private lateinit var _navigator: Navigator
+    private lateinit var _viewmodel: MainViewModel
 
     fun navigator(): Navigator {
         if(_navigator == null) {
@@ -27,11 +29,12 @@ class MainActivity : SingleActivity() {
     }
 
     override fun createNavigator(): Navigator {
-        val viewmodel = (application as App).getViewModel()
+        val db = (application as App).getDatabase()
+        _viewmodel = MainViewModel(db)
 
         val list = mutableListOf<Screen<*>>()
-        list.add(OnListScreen(viewmodel))
-        list.add(FilterListScreen(viewmodel))
+        list.add(OnListScreen(_viewmodel))
+        list.add(FilterListScreen(_viewmodel))
 
         _navigator = Navigator.withRoot(MainScreen(list)).build()
 
