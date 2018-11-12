@@ -9,7 +9,7 @@ import dk.redweb.shoppinglist.BuildConfig
 class MyLog {
     companion object {
         fun v(text: String?, ex: Exception? = null) {
-            MyLog.v("", "text", ex)
+            MyLog.v("", text, ex)
         }
 
         fun v(tag: String, text: String?, ex: Exception? = null) {
@@ -19,7 +19,7 @@ class MyLog {
         }
 
         fun d(text: String?, ex: Exception? = null) {
-            MyLog.d("", "text", ex)
+            MyLog.d("", text, ex)
         }
 
         fun d(tag: String, text: String?, ex: Exception? = null) {
@@ -29,7 +29,7 @@ class MyLog {
         }
 
         fun i(text: String?, ex: Exception? = null) {
-            MyLog.i("", "text", ex)
+            MyLog.i("", text, ex)
         }
 
         fun i(tag: String, text: String?, ex: Exception? = null) {
@@ -37,7 +37,7 @@ class MyLog {
         }
 
         fun w(text: String?, ex: Exception? = null) {
-            MyLog.w("", "text", ex)
+            MyLog.w("", text, ex)
         }
 
         fun w(tag: String, text: String?, ex: Exception? = null) {
@@ -45,7 +45,7 @@ class MyLog {
         }
 
         fun e(text: String?, ex: Exception? = null) {
-            MyLog.e("", "text", ex)
+            MyLog.e("", text, ex)
         }
 
         fun e(tag: String, text: String?, ex: Exception? = null) {
@@ -53,7 +53,7 @@ class MyLog {
         }
 
         fun wtf(text: String?, ex: Exception? = null) {
-            MyLog.wtf("", "text", ex)
+            MyLog.wtf("", text, ex)
         }
 
         fun wtf(tag: String, text: String?, ex: Exception? = null) {
