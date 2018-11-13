@@ -26,8 +26,8 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
         }
     }
 
-    fun createItem(name: String) {
-        _db.Items.createItem(name) {
+    fun createItem(name: String, tags: List<Tag>) {
+        _db.Items.createItem(name, tags) {
             itemid ->
             _db.Items.getItem(itemid){
                 dbitem ->
@@ -39,6 +39,15 @@ class MainViewModel(private val _db: AppDatabase) : BaseViewModel(){
 
     fun editItem(item: Item) {
         _db.Items.updateItem(item)
+
+        handleUpdateItem()
+
+        doCallback(_itemsSubscription.values, _items)
+        doCallback(_selectedItemsSubscription.values, _selectedItems)
+    }
+
+    fun editItem(item: Item, tags: List<Tag>) {
+        _db.Items.updateItem(item, tags)
 
         handleUpdateItem()
 

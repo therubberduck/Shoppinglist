@@ -7,6 +7,7 @@ import dk.redweb.shoppinglist.Database.Model.DbItem
 import dk.redweb.shoppinglist.Database.Schemas.ItemSchema
 import dk.redweb.shoppinglist.Database.Schemas.ItemTagSchema
 import dk.redweb.shoppinglist.ViewModel.Item
+import dk.redweb.shoppinglist.ViewModel.Tag
 import org.jetbrains.anko.db.*
 
 /**
@@ -17,17 +18,23 @@ class ItemModule : Dbmodule() {
         _db = db
     }
 
-    fun createItem(name: String, callback: ((Long) -> Unit)? = null){
+    fun createItem(name: String, tags: List<Tag>, callback: ((Long) -> Unit)? = null){
         _db.use {
             val id = insertOrThrow(
                     ItemSchema.tableName,
                     ItemSchema.name to name,
-                    ItemSchema.onList to false
+                    ItemSchema.onList to false,
+                    ItemSchema.prefix to "",
+                    ItemSchema.suffix to ""
             )
-            if(callback != null) {
-                callback(id)
+            if(tags.size == 0){
+                callback?.invoke(id)
             }
-
+            else {
+                _db.Tags.setItemTags(id, tags){
+                    callback?.invoke(id)
+                }
+            }
         }
     }
 
@@ -78,6 +85,10 @@ class ItemModule : Dbmodule() {
     }
 
     fun updateItem(item: Item) {
+        updateItem(item, null)
+    }
+
+    fun updateItem(item: Item, tags: List<Tag>?) {
         val contentValues = ContentValues()
         contentValues.put(ItemSchema.name, item.getName())
         contentValues.put(ItemSchema.prefix, item.getPrefix())
@@ -88,6 +99,9 @@ class ItemModule : Dbmodule() {
 
         _db.use {
             update(ItemSchema.tableName, contentValues, whereString, null)
+            if (tags != null) {
+                _db.Tags.setItemTags(item.getId(), tags)
+            }
         }
     }
 

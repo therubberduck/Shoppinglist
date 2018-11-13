@@ -6,7 +6,7 @@ import org.jetbrains.anko.db.PRIMARY_KEY
 
 class ItemTagSchema : DbSchema(tableName) {
     companion object {
-        val tableName = "Tags"
+        val tableName = "ItemTags"
         val id = "Id"
         val itemId = "ItemId"
         val tagId = "TagId"

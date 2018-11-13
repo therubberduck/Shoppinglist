@@ -2,7 +2,7 @@ package dk.redweb.shoppinglist.ViewModel
 
 import dk.redweb.shoppinglist.Database.Model.DbTag
 
-class Tag(private val _id: Long, private var _name: String, private var _type: Int) {
+class Tag(private val _id: Long, private var _name: String, private var _type: Int) : BaseViewModel() {
 
     companion object {
         val FilterType: Int = 1

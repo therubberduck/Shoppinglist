@@ -26,6 +26,8 @@ class AddTagView(context: Context?) : BaseScreenView<AddTagScreen>(context) {
         _edtName = find(R.id.edtItemName)
         _rgType = find(R.id.rgType)
         _btnCommit = find(R.id.btnCommit)
+
+        _rgType.check(R.id.rbFilter)
     }
 
     fun setNavTitle(resId: Int) {

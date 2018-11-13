@@ -20,8 +20,8 @@ class ItemSchema : DbSchema(tableName) {
                 Pair(id, INTEGER + PRIMARY_KEY + AUTOINCREMENT),
                 Pair(name, TEXT),
                 Pair(onList, INTEGER),
-                Pair(prefix, TEXT),
-                Pair(suffix, TEXT)
+                Pair(prefix, TEXT + NOT_NULL),
+                Pair(suffix, TEXT + NOT_NULL)
         )
     }
 }

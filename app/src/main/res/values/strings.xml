@@ -2,6 +2,7 @@
     <string name="app_name">ShoppingList</string>
 
     <string name="itemname">Name</string>
+    <string name="itemtags">Tags</string>
     <string name="itemprefix">Prefix</string>
     <string name="itemsuffix">Suffix</string>
 

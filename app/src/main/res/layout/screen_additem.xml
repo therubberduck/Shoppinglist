@@ -28,10 +28,25 @@
     </android.support.design.widget.TextInputLayout>
 
     <TextView
+        android:id="@+id/txtTagsLabel"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tilItemName"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/colorAccent"
+        android:text="@string/itemtags"/>
+
+    <com.chrischeng.flowlayout.FlowLayout
+        android:id="@+id/flwTags"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txtTagsLabel"
+        android:layout_marginLeft="16dp" android:layout_marginRight="16dp"
+        app:fl_spacing_horizontal="16dp" app:fl_spcaing_vertical="16dp"/>
+
+    <TextView
         android:id="@+id/txtPreviewName"
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tilItemName"
+        app:layout_constraintTop_toBottomOf="@id/flwTags"
         android:textSize="20sp"
         tools:text="2 kg Oats"/>
 
